@@ -1,0 +1,38 @@
+body {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+img {
+	border-radius: 5px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.intro {
+	font-style: italic;
+	font-weight: 300;
+	font-size: 14px;
+}
+
+.ingredients-header,
+.steps-header {
+	font-size: 24px;
+}
+
+.ingredients-header {
+	color: green;
+}
+
+.steps-header {
+	color: blue;
+}
+
+.note {
+	color: red;
+}
