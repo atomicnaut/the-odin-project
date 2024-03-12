@@ -26,11 +26,16 @@
 			<div class="row">
 				<h2>Choose your weapon:</h2>
 				<div class="weapon-row">
-					<i
-						class="fa-regular fa-hand-back-fist fa-rotate-90 rock"
-					></i>
-					<i class="fa-regular fa-hand paper"></i>
-					<i class="fa-regular fa-hand-scissors scissors"></i>
+					<button
+						id="rock"
+						class="fa-regular fa-hand-back-fist fa-rotate-90"
+					></button>
+
+					<button id="paper" class="fa-regular fa-hand"></button>
+					<button
+						id="scissors"
+						class="fa-regular fa-hand-scissors"
+					></button>
 				</div>
 			</div>
 
@@ -38,17 +43,13 @@
 				<h3>First to score 5 wins</h3>
 				<div class="scoreboard">
 					<div class="player">
-						<div class="player-icon">
-							<i class="fa-solid fa-question"></i>
-						</div>
-						<p>Player: <span class="player-score">0</span></p>
+						<p id="player-score">0</p>
+						<p>Player</p>
 					</div>
 
 					<div class="computer">
-						<div class="computer-icon">
-							<i class="fa-solid fa-question"></i>
-						</div>
-						<p>Computer: <span class="computer-score">0</span></p>
+						<p id="computer-score">0</p>
+						<p>Computer</p>
 					</div>
 				</div>
 			</div>

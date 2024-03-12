@@ -1,11 +1,39 @@
+// DOM
+const rock = document.querySelector("#rock");
+const rockClassArray = rock.classList;
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
+
+const playerScorecard = document.querySelector("#player-score");
+const computerScorecard = document.querySelector("#computer-score");
+
+const playerDiv = document.querySelector(".player");
+const computerDiv = document.querySelector(".computer");
+const questionArray = document.querySelectorAll(".question");
+
+// Event Listeners
+rock.addEventListener("click", (e) => {
+	playerClick(e);
+});
+
+paper.addEventListener("click", (e) => {
+	playerClick(e);
+});
+
+scissors.addEventListener("click", (e) => {
+	playerClick(e);
+});
+
 // Variables
 const choices = ["rock", "paper", "scissors"];
 
-let playerSelection;
+// let playerSelection;
 let computerSelection;
 
 let playerScore = 0;
 let computerScore = 0;
+
+let game = true;
 
 // Functions
 // have computer randomly choose rock, paper, or scissors
@@ -72,30 +100,46 @@ function playerChoosesScissors(computer) {
 }
 
 // play one round of the game
-// function playRound(player, computer) {
-// 	computer = getComputerChoice();
-// 	player = prompt(`Choose rock, paper, or scissors:`).toLowerCase().trim();
-// 	console.log(`Player choice: ${player}`, `-- Computer choice: ${computer}`);
+function playRound(player, computer) {
+	computer = getComputerChoice();
+	console.log(`Player choice: ${player}`, `-- Computer choice: ${computer}`);
 
-// 	// check if player input is one of the choices -- if not
-// 	while (player !== "rock" && player !== "paper" && player !== "scissors") {
-// 		player = prompt(
-// 			`Not a valid option. Please input rock, paper, or scissors:`
-// 		)
-// 			.toLowerCase()
-// 			.trim();
-// 	}
+	// check if player input is one of the choices -- if not
+	while (player !== "rock" && player !== "paper" && player !== "scissors") {
+		player = prompt(
+			`Not a valid option. Please input rock, paper, or scissors:`
+		)
+			.toLowerCase()
+			.trim();
+	}
 
-// 	if (player === "rock" || player === "paper" || player === "scissors") {
-// 		if (player === "rock") {
-// 			return playerChoosesRock(computer);
-// 		} else if (player === "paper") {
-// 			return playerChoosesPaper(computer);
-// 		} else if (player === "scissors") {
-// 			return playerChoosesScissors(computer);
-// 		}
-// 	}
-// }
+	if (player === "rock" || player === "paper" || player === "scissors") {
+		if (player === "rock") {
+			return playerChoosesRock(computer);
+		} else if (player === "paper") {
+			return playerChoosesPaper(computer);
+		} else if (player === "scissors") {
+			return playerChoosesScissors(computer);
+		}
+	}
+}
+
+function playerClick(e) {
+	const playerChoice = e.target.id;
+	playRound(playerChoice, computerSelection);
+	playerScorecard.textContent = playerScore;
+	computerScorecard.textContent = computerScore;
+
+	if (playerScore === 5 || computerScore === 5) {
+		game = false;
+		rock.disabled = true;
+		rock.setAttribute("style", "opacity: 0.5; cursor: not-allowed;");
+		paper.disabled = true;
+		paper.setAttribute("style", "opacity: 0.5; cursor: not-allowed;");
+		scissors.disabled = true;
+		scissors.setAttribute("style", "opacity: 0.5; cursor: not-allowed;");
+	}
+}
 
 // play complete game of 5 rounds
 // function playGame() {
