@@ -35,3 +35,19 @@ div.appendChild(anotherP);
 container.appendChild(div);
 
 // Events
+const btn = document.querySelector("#btn");
+btn.onclick = () => alert("Hello World");
+btn.addEventListener("click", (e) => {
+	e.target.style.background = "blue";
+});
+// event listener
+const btnTwo = document.querySelector("#btn-two");
+btnTwo.addEventListener("click", () => {
+	alert("Hello World");
+});
+// callback event
+const btnThree = document.querySelector("#btn-three");
+btnThree.addEventListener("click", alertFunction);
+function alertFunction() {
+	alert("Hello World");
+}

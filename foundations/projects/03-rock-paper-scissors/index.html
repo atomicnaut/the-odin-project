@@ -5,8 +5,64 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Rock, Paper, Scissors</title>
 		<link rel="stylesheet" href="style.css" />
+		<script
+			src="https://kit.fontawesome.com/bc6122e952.js"
+			crossorigin="anonymous"
+			defer
+		></script>
+		<script src="script.js" defer></script>
 	</head>
 	<body>
-		<script src="script.js"></script>
+		<header>
+			<p>Rock, Paper, Scissors</p>
+			<p>|</p>
+			<p>
+				<i class="fa-regular fa-hand-back-fist fa-rotate-90"></i>
+				<i class="fa-regular fa-hand"></i>
+				<i class="fa-regular fa-hand-scissors"></i>
+			</p>
+		</header>
+		<main>
+			<div class="row">
+				<h2>Choose your weapon:</h2>
+				<div class="weapon-row">
+					<i
+						class="fa-regular fa-hand-back-fist fa-rotate-90 rock"
+					></i>
+					<i class="fa-regular fa-hand paper"></i>
+					<i class="fa-regular fa-hand-scissors scissors"></i>
+				</div>
+			</div>
+
+			<div class="row">
+				<h3>First to score 5 wins</h3>
+				<div class="scoreboard">
+					<div class="player">
+						<div class="player-icon">
+							<i class="fa-solid fa-question"></i>
+						</div>
+						<p>Player: <span class="player-score">0</span></p>
+					</div>
+
+					<div class="computer">
+						<div class="computer-icon">
+							<i class="fa-solid fa-question"></i>
+						</div>
+						<p>Computer: <span class="computer-score">0</span></p>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<p>
+				<i class="fa-regular fa-hand-back-fist fa-rotate-90"></i>
+				<i class="fa-regular fa-hand"></i>
+				<i class="fa-regular fa-hand-scissors"></i>
+			</p>
+			<p>|</p>
+			<p>Rock, Paper, Scissors &copy; 2024</p>
+			<p>|</p>
+			<p>Atomicnaut</p>
+		</footer>
 	</body>
 </html>

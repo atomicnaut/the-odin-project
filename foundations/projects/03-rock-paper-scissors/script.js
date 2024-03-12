@@ -72,43 +72,41 @@ function playerChoosesScissors(computer) {
 }
 
 // play one round of the game
-function playRound(player, computer) {
-	computer = getComputerChoice();
-	player = prompt(`Choose rock, paper, or scissors:`).toLowerCase().trim();
-	console.log(`Player choice: ${player}`, `-- Computer choice: ${computer}`);
+// function playRound(player, computer) {
+// 	computer = getComputerChoice();
+// 	player = prompt(`Choose rock, paper, or scissors:`).toLowerCase().trim();
+// 	console.log(`Player choice: ${player}`, `-- Computer choice: ${computer}`);
 
-	// check if player input is one of the choices -- if not
-	while (player !== "rock" && player !== "paper" && player !== "scissors") {
-		player = prompt(
-			`Not a valid option. Please input rock, paper, or scissors:`
-		)
-			.toLowerCase()
-			.trim();
-	}
+// 	// check if player input is one of the choices -- if not
+// 	while (player !== "rock" && player !== "paper" && player !== "scissors") {
+// 		player = prompt(
+// 			`Not a valid option. Please input rock, paper, or scissors:`
+// 		)
+// 			.toLowerCase()
+// 			.trim();
+// 	}
 
-	if (player === "rock" || player === "paper" || player === "scissors") {
-		if (player === "rock") {
-			return playerChoosesRock(computer);
-		} else if (player === "paper") {
-			return playerChoosesPaper(computer);
-		} else if (player === "scissors") {
-			return playerChoosesScissors(computer);
-		}
-	}
-}
+// 	if (player === "rock" || player === "paper" || player === "scissors") {
+// 		if (player === "rock") {
+// 			return playerChoosesRock(computer);
+// 		} else if (player === "paper") {
+// 			return playerChoosesPaper(computer);
+// 		} else if (player === "scissors") {
+// 			return playerChoosesScissors(computer);
+// 		}
+// 	}
+// }
 
 // play complete game of 5 rounds
-function playGame() {
-	for (let i = 0; i <= 4; i++) {
-		playRound(playerSelection, computerSelection);
-	}
-	if (playerScore > computerScore) {
-		return `Congratulations, you win! ${playerScore} to ${computerScore}`;
-	} else if (playerScore < computerScore) {
-		return `Sorry, you lose! ${playerScore} to ${computerScore}`;
-	} else {
-		return `You Tied! ${playerScore} to ${computerScore}`;
-	}
-}
-
-console.log(playGame());
+// function playGame() {
+// 	for (let i = 0; i <= 4; i++) {
+// 		playRound(playerSelection, computerSelection);
+// 	}
+// 	if (playerScore > computerScore) {
+// 		return `Congratulations, you win! ${playerScore} to ${computerScore}`;
+// 	} else if (playerScore < computerScore) {
+// 		return `Sorry, you lose! ${playerScore} to ${computerScore}`;
+// 	} else {
+// 		return `You Tied! ${playerScore} to ${computerScore}`;
+// 	}
+// }
