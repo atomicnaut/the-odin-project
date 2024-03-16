@@ -1,156 +1,253 @@
-// DOM
-const rock = document.querySelector("#rock");
-const rockClassArray = rock.classList;
-const paper = document.querySelector("#paper");
-const scissors = document.querySelector("#scissors");
-
-const playerScorecard = document.querySelector("#player-score");
-const computerScorecard = document.querySelector("#computer-score");
-
-const playerDiv = document.querySelector(".player");
-const computerDiv = document.querySelector(".computer");
-const questionArray = document.querySelectorAll(".question");
-
-// Event Listeners
-rock.addEventListener("click", (e) => {
-	playerClick(e);
-});
-
-paper.addEventListener("click", (e) => {
-	playerClick(e);
-});
-
-scissors.addEventListener("click", (e) => {
-	playerClick(e);
-});
-
 // Variables
-const choices = ["rock", "paper", "scissors"];
-
-// let playerSelection;
-let computerSelection;
-
 let playerScore = 0;
 let computerScore = 0;
+let roundWinner;
+let choices = ["rock", "paper", "scissors"];
 
-let game = true;
+// DOM
+const roundMessage = document.querySelector("#round-message");
+const roundInfo = document.querySelector("#round-info");
+const playerSign = document.querySelector("#player-sign");
+const playerScoreDiv = document.querySelector("#player-score");
+const computerSign = document.querySelector("#computer-sign");
+const computerScoreDiv = document.querySelector("#computer-score");
+const rockButton = document.querySelector("#rock-btn");
+const paperButton = document.querySelector("#paper-btn");
+const scissorsButton = document.querySelector("#scissors-btn");
+const resetButton = document.querySelector("#reset");
+// const endgameModal = document.querySelector("#endgameModal");
+// const endgameMsg = document.querySelector("#endgameMsg");
+// const overlay = document.querySelector("#overlay");
+// const restartBtn = document.querySelector("#restartBtn");
+
+// Click Events
+rockButton.addEventListener("click", () => handleClick("rock"));
+paperButton.addEventListener("click", () => handleClick("paper"));
+scissorsButton.addEventListener("click", () => handleClick("scissors"));
+
+resetButton.addEventListener("click", resetGame);
 
 // Functions
-// have computer randomly choose rock, paper, or scissors
+function isGameOver() {
+	return playerScore === 5 || computerScore === 5;
+}
+
 function getComputerChoice() {
-	const choice = Math.floor(Math.random() * 3);
-	return choices[choice];
+	let random = Math.floor(Math.random() * 3);
+	return choices[random];
 }
 
-// if player chooses rock
-function playerChoosesRock(computer) {
-	switch (computer) {
-		case "rock":
-			return "You Tie! Rock equals Rock!";
-			break;
-		case "paper":
-			computerScore++;
-			return "You Lose! Paper smothers Rock!";
-			break;
-		case "scissors":
-			playerScore++;
-			return "You Win! Rock crushes Scissors!";
-			break;
-		default:
-			break;
+function playRound(playerSelection, computerSelection) {
+	console.log(computerSelection);
+	if (playerSelection === computerSelection) roundWinner = "tie";
+	if (
+		(playerSelection === "rock" && computerSelection === "scissors") ||
+		(playerSelection === "scissors" && computerSelection === "paper") ||
+		(playerSelection === "paper" && computerSelection === "rock")
+	) {
+		playerScore++;
+		roundWinner = "player";
 	}
+	if (
+		(computerSelection === "rock" && playerSelection === "scissors") ||
+		(computerSelection === "scissors" && playerSelection === "paper") ||
+		(computerSelection === "paper" && playerSelection === "rock")
+	) {
+		computerScore++;
+		roundWinner = "computer";
+	}
+	// updateScoreMessage(roundWinner, playerSelection, computerSelection);
+	console.log(playerScore, computerScore);
+
+	updateScore(roundWinner, playerSelection, computerSelection);
 }
 
-// if player chooses paper
-function playerChoosesPaper(computer) {
-	switch (computer) {
-		case "rock":
-			playerScore++;
-			return "You Win! Paper smothers Rock!";
-			break;
-		case "paper":
-			return "You Tie! Paper equals Paper!";
-			break;
-		case "scissors":
-			computerScore++;
-			return "You Lose! Scissors cuts Paper!";
-			break;
-		default:
-			break;
-	}
-}
+function handleClick(playerSelection) {
+	roundMessage.classList.remove("typewriter");
+	roundMessage.classList.remove("complete-typewriter");
 
-// if player chooses scissors
-function playerChoosesScissors(computer) {
-	switch (computer) {
-		case "rock":
-			computerScore++;
-			return "You Lose! Rock crushes Scissors!";
-			break;
-		case "paper":
-			playerScore++;
-			return "You Win! Scissors cuts Paper!";
-			break;
-		case "scissors":
-			return "You Tie! Scissors equals Scissors!";
-			break;
-		default:
-			break;
-	}
-}
+	// Get computer choice
+	const computerSelection = getComputerChoice();
+	// Play one round
+	playRound(playerSelection, computerSelection);
 
-// play one round of the game
-function playRound(player, computer) {
-	computer = getComputerChoice();
-	console.log(`Player choice: ${player}`, `-- Computer choice: ${computer}`);
-
-	// check if player input is one of the choices -- if not
-	while (player !== "rock" && player !== "paper" && player !== "scissors") {
-		player = prompt(
-			`Not a valid option. Please input rock, paper, or scissors:`
-		)
-			.toLowerCase()
-			.trim();
-	}
-
-	if (player === "rock" || player === "paper" || player === "scissors") {
-		if (player === "rock") {
-			return playerChoosesRock(computer);
-		} else if (player === "paper") {
-			return playerChoosesPaper(computer);
-		} else if (player === "scissors") {
-			return playerChoosesScissors(computer);
+	// Check if game is over after round
+	if (isGameOver()) {
+		if (playerScore > computerScore) {
+			roundMessage.textContent = "Congratulations, You Win!";
+			roundInfo.textContent = "Play Again?";
+			resetButton.textContent = "Play Again";
+		} else {
+			roundMessage.textContent = "Sorry, You Lose!";
+			roundInfo.textContent = "Play Again?";
+			resetButton.textContent = "Play Again";
 		}
+
+		// Disable buttons
+		rockButton.disabled = true;
+		paperButton.disabled = true;
+		scissorsButton.disabled = true;
+
+		// Style disabled buttons
+		rockButton.setAttribute("style", "opacity: 0.5; pointer-events: none;");
+		paperButton.setAttribute(
+			"style",
+			"opacity: 0.5; pointer-events: none;"
+		);
+		scissorsButton.setAttribute(
+			"style",
+			"opacity: 0.5; pointer-events: none;"
+		);
 	}
 }
 
-function playerClick(e) {
-	const playerChoice = e.target.id;
-	playRound(playerChoice, computerSelection);
-	playerScorecard.textContent = playerScore;
-	computerScorecard.textContent = computerScore;
+function updateScore(winner, playerSelection, computerSelection) {
+	// Update round message
+	if (winner === "tie") roundMessage.textContent = "It's a Tie!";
+	if (winner === "player") roundMessage.textContent = "You Win!";
+	if (winner === "computer") roundMessage.textContent = "You Lose!";
 
-	if (playerScore === 5 || computerScore === 5) {
-		game = false;
-		rock.disabled = true;
-		rock.setAttribute("style", "opacity: 0.5; cursor: not-allowed;");
-		paper.disabled = true;
-		paper.setAttribute("style", "opacity: 0.5; cursor: not-allowed;");
-		scissors.disabled = true;
-		scissors.setAttribute("style", "opacity: 0.5; cursor: not-allowed;");
+	// Update round info
+	if (winner === "player") {
+		switch (playerSelection) {
+			case "rock":
+				roundInfo.textContent = "Rock crushes Scissors";
+				// Update sign colors
+				playerSign.setAttribute("style", "text-shadow: 0 0 0 #B4D08A;");
+				computerSign.setAttribute(
+					"style",
+					"text-shadow: 0 0 0 #ff4754;"
+				);
+				break;
+			case "paper":
+				roundInfo.textContent = "Paper smothers Rock";
+				// Update sign colors
+				playerSign.setAttribute("style", "text-shadow: 0 0 0 #B4D08A;");
+				computerSign.setAttribute(
+					"style",
+					"text-shadow: 0 0 0 #ff4754;"
+				);
+				break;
+			case "scissors":
+				roundInfo.textContent = "Scissors cuts Paper";
+				// Update sign colors
+				playerSign.setAttribute("style", "text-shadow: 0 0 0 #B4D08A;");
+				computerSign.setAttribute(
+					"style",
+					"text-shadow: 0 0 0 #ff4754;"
+				);
+				break;
+			default:
+				break;
+		}
+	} else if (winner === "computer") {
+		switch (computerSelection) {
+			case "rock":
+				roundInfo.textContent = "Rock crushes Scissors";
+				// Update sign colors
+				playerSign.setAttribute("style", "text-shadow: 0 0 0 #ff4754;");
+				computerSign.setAttribute(
+					"style",
+					"text-shadow: 0 0 0 #B4D08A;"
+				);
+				break;
+			case "paper":
+				roundInfo.textContent = "Paper smothers Rock";
+				// Update sign colors
+				playerSign.setAttribute("style", "text-shadow: 0 0 0 #ff4754;");
+				computerSign.setAttribute(
+					"style",
+					"text-shadow: 0 0 0 #B4D08A;"
+				);
+				break;
+			case "scissors":
+				roundInfo.textContent = "Scissors cuts Paper";
+				// Update sign colors
+				playerSign.setAttribute("style", "text-shadow: 0 0 0 #ff4754;");
+				computerSign.setAttribute(
+					"style",
+					"text-shadow: 0 0 0 #B4D08A;"
+				);
+				break;
+			default:
+				break;
+		}
+	} else {
+		roundInfo.textContent = `${capitalizeFirstLetter(
+			playerSelection
+		)} equals ${capitalizeFirstLetter(computerSelection)}`;
+		// Update sign colors
+		playerSign.setAttribute("style", "text-shadow: 0 0 0 #f5f5f544;");
+		computerSign.setAttribute("style", "text-shadow: 0 0 0 #f5f5f544;");
 	}
+
+	// Update choice icons
+	switch (playerSelection) {
+		case "rock":
+			playerSign.textContent = "✊";
+			break;
+		case "paper":
+			playerSign.textContent = "✋";
+			break;
+		case "scissors":
+			playerSign.textContent = "✌";
+			break;
+		default:
+			break;
+	}
+	switch (computerSelection) {
+		case "rock":
+			computerSign.textContent = "✊";
+			break;
+		case "paper":
+			computerSign.textContent = "✋";
+			break;
+		case "scissors":
+			computerSign.textContent = "✌";
+			break;
+		default:
+			break;
+	}
+
+	// Update scores
+	playerScoreDiv.textContent = playerScore;
+	computerScoreDiv.textContent = computerScore;
 }
 
-// play complete game of 5 rounds
-// function playGame() {
-// 	for (let i = 0; i <= 4; i++) {
-// 		playRound(playerSelection, computerSelection);
-// 	}
-// 	if (playerScore > computerScore) {
-// 		return `Congratulations, you win! ${playerScore} to ${computerScore}`;
-// 	} else if (playerScore < computerScore) {
-// 		return `Sorry, you lose! ${playerScore} to ${computerScore}`;
-// 	} else {
-// 		return `You Tied! ${playerScore} to ${computerScore}`;
-// 	}
-// }
+function capitalizeFirstLetter(string) {
+	return `${string.charAt(0).toUpperCase()}${string.slice(1).toLowerCase()}`;
+}
+
+function resetGame() {
+	// Update round info messages
+	roundMessage.classList.add("complete-typewriter");
+	roundMessage.textContent = "Choose your weapon:";
+	roundInfo.textContent = "First to score 5 wins";
+
+	// Reset scores
+	playerScore = 0;
+	computerScore = 0;
+
+	// Reset score divs
+	playerScoreDiv.textContent = "0";
+	computerScoreDiv.textContent = "0";
+
+	// Change reset button back
+	resetButton.textContent = "Reset";
+
+	// Change player and computer signs back
+	playerSign.textContent = "❔";
+	computerSign.textContent = "❔";
+	playerSign.setAttribute("style", "text-shadow: 0 0 0 #f5f5f544;");
+	computerSign.setAttribute("style", "text-shadow: 0 0 0 #f5f5f544;");
+
+	// Enable buttons
+	rockButton.disabled = false;
+	paperButton.disabled = false;
+	scissorsButton.disabled = false;
+
+	// Style enabled buttons
+	rockButton.setAttribute("style", "cursor: pointer; opacity: 1;");
+	paperButton.setAttribute("style", "cursor: pointer; opacity: 1;");
+	scissorsButton.setAttribute("style", "cursor: pointer; opacity: 1;");
+}

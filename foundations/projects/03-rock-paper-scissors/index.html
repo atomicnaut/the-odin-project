@@ -23,35 +23,42 @@
 			</p>
 		</header>
 		<main>
-			<div class="row">
-				<h2>Choose your weapon:</h2>
-				<div class="weapon-row">
-					<button
-						id="rock"
-						class="fa-regular fa-hand-back-fist fa-rotate-90"
-					></button>
-
-					<button id="paper" class="fa-regular fa-hand"></button>
-					<button
-						id="scissors"
-						class="fa-regular fa-hand-scissors"
-					></button>
+			<div>
+				<h2 class="typewriter" id="round-message">
+					Choose your weapon:
+				</h2>
+				<h3 id="round-info">First to score 5 wins</h3>
+			</div>
+			<!-- Scoreboard -->
+			<div class="scoreboard">
+				<div class="player">
+					<div class="question-sign" id="player-sign">❔</div>
+					<p class="score">
+						Player: <span id="player-score">0</span>
+					</p>
+				</div>
+				<button id="reset">Reset</button>
+				<div class="computer">
+					<div class="question-sign" id="computer-sign">❔</div>
+					<p class="score">
+						Computer: <span id="computer-score">0</span>
+					</p>
 				</div>
 			</div>
-
-			<div class="row">
-				<h3>First to score 5 wins</h3>
-				<div class="scoreboard">
-					<div class="player">
-						<p id="player-score">0</p>
-						<p>Player</p>
-					</div>
-
-					<div class="computer">
-						<p id="computer-score">0</p>
-						<p>Computer</p>
-					</div>
-				</div>
+			<!-- Buttons -->
+			<div class="choice-buttons">
+				<button class="btn" id="rock-btn">
+					<div class="sign">✊</div>
+					<p>Rock</p>
+				</button>
+				<button class="btn" id="paper-btn">
+					<div class="sign">✋</div>
+					<p>Paper</p>
+				</button>
+				<button class="btn" id="scissors-btn">
+					<div class="sign">✌</div>
+					<p>Scissors</p>
+				</button>
 			</div>
 		</main>
 		<footer>
